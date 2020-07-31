@@ -196,6 +196,9 @@ public class PtyHelpers {
   private static final LazyValue<OSFacade> OS_FACADE_VALUE = new LazyValue<OSFacade>(new Callable<OSFacade>() {
     @Override
     public OSFacade call() {
+      // get platform name
+      String platform_name = System.getProperty("os.name").toLowerCase();
+
       if (Platform.isMac()) {
         return new com.pty4j.unix.macosx.OSFacadeImpl();
       }
@@ -205,7 +208,7 @@ public class PtyHelpers {
       else if (Platform.isOpenBSD()) {
         return new com.pty4j.unix.openbsd.OSFacadeImpl();
       }
-      else if (Platform.isLinux() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase().equals("linux")) {
+      else if (Platform.isLinux() || Platform.isAndroid() || platform_name.equals("linux")) {
         // Here the name property too
         // patch for android devices
         return new com.pty4j.unix.linux.OSFacadeImpl();
@@ -214,7 +217,7 @@ public class PtyHelpers {
         throw new IllegalArgumentException("WinPtyProcess should be used on Windows");
       }
       // unknown platorm error
-      throw new RuntimeException("Pty4J has no support for OS " + System.getProperty("os.name"));
+      throw new RuntimeException("Pty4J has no support for OS " + platform_name);
     }
   });
 

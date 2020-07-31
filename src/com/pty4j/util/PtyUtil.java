@@ -180,12 +180,14 @@ public class PtyUtil {
 
   private static String getNativeLibraryName() {
     String result;
+    // get_name
+    String platform_name = System.getProperty("os.name").toLowerCase();
 
     if (Platform.isMac()) {
       result = "libpty.dylib";
     } else if (Platform.isWindows()) {
       result = "winpty.dll";
-    } else if (Platform.isLinux() || Platform.isFreeBSD() || Platform.isOpenBSD() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase().equals("linux")) {
+    } else if (Platform.isLinux() || Platform.isFreeBSD() || Platform.isOpenBSD() || Platform.isAndroid() || platform_name.equals("linux")) {
       // Check platform name too
       // Patch for aarch64
       result = "libpty.so";
