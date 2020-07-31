@@ -199,18 +199,21 @@ public class PtyHelpers {
       if (Platform.isMac()) {
         return new com.pty4j.unix.macosx.OSFacadeImpl();
       }
-      if (Platform.isFreeBSD()) {
+      else if (Platform.isFreeBSD()) {
         return new com.pty4j.unix.freebsd.OSFacadeImpl();
       }
-      if (Platform.isOpenBSD()) {
+      else if (Platform.isOpenBSD()) {
         return new com.pty4j.unix.openbsd.OSFacadeImpl();
       }
-      if (Platform.isLinux() || Platform.isAndroid()) {
+      else if (Platform.isLinux() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase() == "linux")) {
+        // Here the name property too
+        // patch for android devices
         return new com.pty4j.unix.linux.OSFacadeImpl();
       }
-      if (Platform.isWindows()) {
+      else if (Platform.isWindows()) {
         throw new IllegalArgumentException("WinPtyProcess should be used on Windows");
       }
+      // unknown platorm error
       throw new RuntimeException("Pty4J has no support for OS " + System.getProperty("os.name"));
     }
   });

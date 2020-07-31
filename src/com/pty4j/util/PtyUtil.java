@@ -150,7 +150,9 @@ public class PtyUtil {
       return "xp";
     if (System.getProperty("os.arch").equals("ppc64le"))
       return "ppc64le";
-
+    // Handle arm64 / aarch64
+    if (System.getProperty("os.arch").equals("aarch64"))
+      return "aarch64";
     // Special cases handled, assume x86
     return Platform.is64Bit() ? "x86_64" : "x86";
   }
@@ -183,7 +185,9 @@ public class PtyUtil {
       result = "libpty.dylib";
     } else if (Platform.isWindows()) {
       result = "winpty.dll";
-    } else if (Platform.isLinux() || Platform.isFreeBSD() || Platform.isOpenBSD() || Platform.isAndroid()) {
+    } else if (Platform.isLinux() || Platform.isFreeBSD() || Platform.isOpenBSD() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase() == "linux")) {
+      // Check platform name too
+      // Patch for aarch64
       result = "libpty.so";
     } else {
       throw new IllegalStateException("Platform " + Platform.getOSType() + " is not supported");
