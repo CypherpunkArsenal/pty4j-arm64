@@ -189,7 +189,7 @@ public class PtyUtil {
       // Check platform name too
       // Patch for aarch64
       result = "libpty.so";
-    }
+    } else {
       throw new IllegalStateException("Platform " + Platform.getOSType() + " is not supported");
     }
 
