@@ -185,11 +185,11 @@ public class PtyUtil {
       result = "libpty.dylib";
     } else if (Platform.isWindows()) {
       result = "winpty.dll";
-    } else if (Platform.isLinux() || Platform.isFreeBSD() || Platform.isOpenBSD() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase() == "linux")) {
+    } else if (Platform.isLinux() || Platform.isFreeBSD() || Platform.isOpenBSD() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase().equals("linux")) {
       // Check platform name too
       // Patch for aarch64
       result = "libpty.so";
-    } else {
+    }
       throw new IllegalStateException("Platform " + Platform.getOSType() + " is not supported");
     }
 

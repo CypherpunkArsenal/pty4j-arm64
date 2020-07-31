@@ -205,7 +205,7 @@ public class PtyHelpers {
       else if (Platform.isOpenBSD()) {
         return new com.pty4j.unix.openbsd.OSFacadeImpl();
       }
-      else if (Platform.isLinux() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase() == "linux")) {
+      else if (Platform.isLinux() || Platform.isAndroid() || System.getProperty("os.name").toLowerCase().equals("linux")) {
         // Here the name property too
         // patch for android devices
         return new com.pty4j.unix.linux.OSFacadeImpl();
